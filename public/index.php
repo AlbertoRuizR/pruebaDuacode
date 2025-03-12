@@ -1,11 +1,11 @@
 <?php
-    include '../app/views/layout/header.php'
+include '../app/views/layout/header.php'
 ?>
 
 <div class="container mt-4">
     <h1>Gestión de Equipos</h1>
 
-    <form id="formEquipos" method="POST">
+    <form id="formEquipo">
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre del equipo</label>
             <input type="text" class="form-control" id="nombre" name="nombre" required>
@@ -28,9 +28,13 @@
             <input type="date" class="form-control" id="fecha" name="fecha">
         </div>
         <button type="submit" class="btn btn-primary">Crear equipo</button>
+
+        <div id="errorMsg" style="color: red; margin-top: 10px"></div>
     </form>
+
+    <div id="tablaEquipos"></div>
 </div>
 
 <?php
-    include '../app/views/layout/footer.php'
+include '../app/views/layout/footer.php'
 ?>
