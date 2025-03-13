@@ -7,14 +7,13 @@ $(document).ready(function () {
         e.preventDefault();
         $('#errorMsg').css("color", "red").text('');
 
-        //validaciones del formulario
+        //validaciones
         let nombre = $('#nombre').val();
         let ciudad = $('#ciudad').val();
         let deporte = $('#deporte').val();
         let fecha = $('#fecha').val();
         let errores = [];
 
-        // Validaciones
         if (nombre === "") errores.push("El nombre es obligatorio.");
         if (ciudad === "") errores.push("La ciudad es obligatoria.");
         if (deporte === "") errores.push("El deporte es obligatorio.");
@@ -41,6 +40,7 @@ $(document).ready(function () {
             }
         });
     });
+
 });
 
 //Crear equipo
