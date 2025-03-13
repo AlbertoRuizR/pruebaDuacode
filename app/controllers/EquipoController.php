@@ -1,52 +1,54 @@
 <?php
+
 /**
  * Controlador de Equipos
  */
 require_once __DIR__ . '/../models/Equipo.php';
 
-class EquipoController {
+class EquipoController
+{
     private $equipo;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->equipo = new Equipo();
     }
 
     /**
      * Crear un equipo
      * Llamado desde ajax
-     * @return
+     * @return string
      */
-    public function create() {
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $nombre = trim($_POST['nombre']);
-            $ciudad = trim($_POST['ciudad']);
-            $deporte = $_POST['deporte'];
-            $fechaFundacion = $_POST['fecha'];
-            $errores = [];
-    
-            // Validaciones
-            if (empty($nombre)) $errores[] = "El nombre es obligatorio.";
-            if (empty($ciudad)) $errores[] = "La ciudad es obligatoria.";
-            if (empty($deporte)) $errores[] = "El deporte es obligatorio.";
-            if (empty($fechaFundacion)) $errores[] = "La fecha de fundación es obligatoria.";
-    
-            if (!empty($errores)) {
-                echo json_encode(["success" => false, "error" => implode("<br>", $errores)]);
-                return;
-            }
-    
-            $this->equipo->setData([
-                'nombre' =>$nombre,
-                'ciudad' =>$ciudad,
-                'deporte' =>$deporte,
-                'fechaFundacion' =>$fechaFundacion
-            ]);
-    
-            if ($this->equipo->create()) {
-                echo json_encode(["success" => true]);
-            } else {
-                echo json_encode(["success" => false, "error" => "Error al insertar en la base de datos."]);
-            }
+    public function create()
+    {
+        $nombre = trim($_POST['nombre']);
+        $ciudad = trim($_POST['ciudad']);
+        $deporte = $_POST['deporte'];
+        $fechaFundacion = $_POST['fecha'];
+        $errores = [];
+
+        // Validaciones
+        if (empty($nombre)) $errores[] = "El nombre es obligatorio.";
+        if (empty($ciudad)) $errores[] = "La ciudad es obligatoria.";
+        if (empty($deporte)) $errores[] = "El deporte es obligatorio.";
+        if (empty($fechaFundacion)) $errores[] = "La fecha de fundación es obligatoria.";
+
+        if (!empty($errores)) {
+            echo json_encode(["success" => false, "error" => implode("<br>", $errores)]);
+            return;
+        }
+
+        $this->equipo->setData([
+            'nombre' => $nombre,
+            'ciudad' => $ciudad,
+            'deporte' => $deporte,
+            'fechaFundacion' => $fechaFundacion
+        ]);
+
+        if ($this->equipo->create()) {
+            echo json_encode(["success" => true]);
+        } else {
+            echo json_encode(["success" => false, "error" => "Error al insertar en la base de datos."]);
         }
     }
 
@@ -54,7 +56,8 @@ class EquipoController {
      * Mostrar todos los equipos
      * @return string
      */
-    public function list() {
+    public function list()
+    {
         $equipos = $this->equipo->get();
 
         //Inlcuyo la vista de la tabla
@@ -66,7 +69,8 @@ class EquipoController {
      * @param $id
      * @return bool
      */
-    public function delete(){
+    public function delete()
+    {
         $id = intval($_POST['id']);
 
         if ($this->equipo->delete($id)) {
@@ -78,8 +82,10 @@ class EquipoController {
 
     /**
      * Obtener los datos de un equipo
+     * @return string
      */
-    public function info(){
+    public function info()
+    {
         $id = isset($_GET['id']) ? $_GET['id'] : null;
 
         if ($id) {
